@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  integrationtest:
+    container_name: integration-test-side-car
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: integration-test-side-car
+    links:
+      - mssql
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/app
+      - ./actions:/actions
+    environment:
+      DATABASE_PASSWORD: ${MSSQL_PASSWORD}
+      DATABASE: ${DATABASE}
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-CU13-ubuntu-20.04
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: ${MSSQL_PASSWORD}

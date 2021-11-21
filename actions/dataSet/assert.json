@@ -1,0 +1,6 @@
+[
+    {
+        "name": "user",
+        "statement": "SELECT Id, Name FROM Test.[User]"
+    }
+]
